@@ -7,8 +7,8 @@ struct SettingsView: View {
         @Bindable var preferences = appModel.preferences
 
         Form {
-            Section("Appearance") {
-                Picker("Theme", selection: $preferences.theme) {
+            Section(L10n("appearance")) {
+                Picker(L10n("theme"), selection: $preferences.theme) {
                     ForEach(AppTheme.allCases) { theme in
                         Text(theme.rawValue.capitalized).tag(theme)
                     }
@@ -17,40 +17,45 @@ struct SettingsView: View {
                     appModel.applyTheme()
                 }
 
-                Picker("Language", selection: $preferences.language) {
+                Picker(L10n("language"), selection: $preferences.language) {
                     Text("English").tag("en")
                     Text("中文").tag("zh-CN")
                 }
+                .onChange(of: preferences.language) { _, newValue in
+                    Localization.shared.setLanguage(newValue)
+                }
 
-                Toggle("Animations", isOn: $preferences.animationsEnabled)
+                Toggle(L10n("animations"), isOn: $preferences.animationsEnabled)
             }
 
-            Section("Updates & Monitoring") {
+            Section(L10n("updates_monitoring")) {
                 Stepper(value: $preferences.updateIntervalMs, in: 500...10_000, step: 500) {
-                    Text("Update interval: \(preferences.updateIntervalMs) ms")
+                    Text(L10n("update_interval", preferences.updateIntervalMs))
                 }
                 .onChange(of: preferences.updateIntervalMs) { _, newValue in
-                    appModel.power.refreshInterval(Double(newValue) / 1000)
+                    let interval = Double(newValue) / 1000
+                    appModel.power.refreshInterval(interval)
+                    appModel.devices.refreshInterval(interval)
                 }
 
-                Toggle("Background monitoring", isOn: .constant(true))
+                Toggle(L10n("background_monitoring"), isOn: .constant(true))
                     .disabled(true)
 
-                Picker("Status bar item", selection: $preferences.statusBarItem) {
+                Picker(L10n("status_bar_item"), selection: $preferences.statusBarItem) {
                     ForEach(StatusBarItem.allCases) { item in
                         Text(item.label).tag(item)
                     }
                 }
 
-                Toggle("Show charging power", isOn: $preferences.statusBarShowCharging)
+                Toggle(L10n("show_charging_power"), isOn: $preferences.statusBarShowCharging)
             }
 
-            Section("About") {
-                LabeledContent("Version", value: "0.3.0")
-                LabeledContent("License", value: "MIT License")
-                LabeledContent("Author", value: "Samuel Lyon")
+            Section(L10n("about")) {
+                LabeledContent(L10n("version"), value: "0.3.0")
+                LabeledContent(L10n("license"), value: "MIT License")
+                LabeledContent(L10n("author"), value: "Samuel Lyon")
                 HStack {
-                    Text("Repository")
+                    Text(L10n("repository"))
                     Spacer()
                     Link("github.com/lzt1008/powerflow", destination: URL(string: "https://github.com/lzt1008/powerflow")!)
                         .font(.caption)

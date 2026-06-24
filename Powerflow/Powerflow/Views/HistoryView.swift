@@ -8,13 +8,13 @@ struct HistoryView: View {
     var body: some View {
         Group {
             if appModel.history.isLoading {
-                ProgressView("Loading history…")
+                ProgressView(L10n("loading_history"))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if appModel.history.sessions.isEmpty {
                 ContentUnavailableView(
-                    "No history recorded yet",
+                    L10n("no_history"),
                     systemImage: "clock.arrow.circlepath",
-                    description: Text("Charging sessions will appear here after you charge your Mac.")
+                    description: Text(L10n("no_history_desc"))
                 )
             } else {
                 @Bindable var history = appModel.history
@@ -22,18 +22,21 @@ struct HistoryView: View {
                     List(history.sessions, selection: $history.selectedSession) { session in
                         HistoryListItemView(session: session)
                     }
-                    .navigationTitle("History")
+                    .navigationTitle(L10n("history"))
                 } detail: {
                     if let session = history.selectedSession {
                         HistoryDetailView(session: session)
                     } else {
-                        ContentUnavailableView("Select a session", systemImage: "sidebar.left")
+                        ContentUnavailableView(L10n("select_session"), systemImage: "sidebar.left")
                     }
                 }
             }
         }
         .task {
             await appModel.history.refresh()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .historyRecorded)) { _ in
+            Task { await appModel.history.refresh() }
         }
     }
 }
@@ -206,13 +209,48 @@ struct HistoryDetailView: View {
 private struct HistoryCurveChart: View {
     let curve: [NormalizedResource]
 
+    @State private var hoverIndex: Int?
+
+    private var series: [(label: String, color: Color, keyPath: KeyPath<NormalizedResource, Float>)] {
+        [
+            (L10n("chart_system_in"), .yellow, \.systemIn),
+            (L10n("chart_system"), .purple, \.systemLoad),
+            (L10n("chart_battery"), .green, \.batteryPower),
+        ]
+    }
+
     var body: some View {
         GeometryReader { proxy in
             let maxPower = max(curve.map(\.systemIn).max() ?? 1, 1)
             ZStack(alignment: .bottomLeading) {
-                chartPath(for: \.systemIn, color: .yellow, max: maxPower, in: proxy.size)
-                chartPath(for: \.systemLoad, color: .purple, max: maxPower, in: proxy.size)
-                chartPath(for: \.batteryPower, color: .green, max: maxPower, in: proxy.size)
+                ForEach(Array(series.enumerated()), id: \.offset) { _, item in
+                    chartPath(for: item.keyPath, color: item.color, max: maxPower, in: proxy.size)
+                }
+            }
+            .contentShape(Rectangle())
+            .onContinuousHover { phase in
+                switch phase {
+                case .active(let location):
+                    let fraction = proxy.size.width > 0 ? location.x / proxy.size.width : 0
+                    let index = Int(round(fraction * CGFloat(max(curve.count - 1, 0))))
+                    hoverIndex = min(max(index, 0), max(curve.count - 1, 0))
+                case .ended:
+                    hoverIndex = nil
+                }
+            }
+            .overlay(alignment: .topLeading) {
+                if let hoverIndex, curve.indices.contains(hoverIndex) {
+                    ChartTooltipCard(
+                        rows: series.map { item in
+                            ChartTooltipRow(
+                                color: item.color,
+                                label: item.label,
+                                value: String(format: "%.1f W", curve[hoverIndex][keyPath: item.keyPath])
+                            )
+                        }
+                    )
+                    .padding(4)
+                }
             }
         }
     }

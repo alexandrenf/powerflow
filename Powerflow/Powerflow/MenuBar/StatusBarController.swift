@@ -22,8 +22,9 @@ final class StatusBarController {
         if let button = statusItem.button {
             button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Powerflow")
             button.image?.isTemplate = true
-            button.action = #selector(togglePopover(_:))
+            button.action = #selector(statusItemClicked(_:))
             button.target = self
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
 
         updateTitle(appModel.power.statusBarTitle)
@@ -47,14 +48,36 @@ final class StatusBarController {
         }
     }
 
-    @objc private func togglePopover(_ sender: AnyObject?) {
-        guard let button = statusItem.button else { return }
+    @objc private func statusItemClicked(_ sender: AnyObject?) {
+        guard let event = NSApp.currentEvent, let button = statusItem.button else { return }
+
+        if event.type == .rightMouseUp {
+            let menu = NSMenu()
+            let showItem = NSMenuItem(title: Localization.shared.string("show_window"), action: #selector(showMainWindow), keyEquivalent: "")
+            showItem.target = self
+            menu.addItem(showItem)
+            menu.addItem(.separator())
+            let quitItem = NSMenuItem(title: Localization.shared.string("quit"), action: #selector(quitApp), keyEquivalent: "q")
+            quitItem.target = self
+            menu.addItem(quitItem)
+            menu.popUp(positioning: nil, at: NSPoint(x: 0, y: button.bounds.height + 4), in: button)
+            return
+        }
+
         if popover.isShown {
             popover.performClose(sender)
         } else {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
             popover.contentViewController?.view.window?.makeKey()
         }
+    }
+
+    @objc private func showMainWindow() {
+        appModel?.openMainWindow()
+    }
+
+    @objc private func quitApp() {
+        NSApp.terminate(nil)
     }
 
     private func updateTitle(_ title: String) {

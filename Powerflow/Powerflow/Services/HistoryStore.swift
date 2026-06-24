@@ -83,7 +83,12 @@ final class HistoryStore {
         return try? JSONDecoder().decode(ChargingHistoryDetail.self, from: data)
     }
 
-    func saveSession(stages: [ChargingHistoryStageInput], deviceName: String) async {
+    func saveSession(
+        stages: [ChargingHistoryStageInput],
+        deviceName: String,
+        udid: String,
+        isRemote: Bool
+    ) async {
         guard let db, let first = stages.first, let last = stages.last else { return }
 
         let avg = stages
@@ -123,11 +128,12 @@ final class HistoryStore {
             sqlite3_bind_blob(statement, 5, buffer.baseAddress, Int32(buffer.count), nil)
         }
         sqlite3_bind_text(statement, 6, deviceName, -1, nil)
-        sqlite3_bind_text(statement, 7, "local", -1, nil)
-        sqlite3_bind_int64(statement, 8, 0)
+        sqlite3_bind_text(statement, 7, udid, -1, nil)
+        sqlite3_bind_int64(statement, 8, isRemote ? 1 : 0)
         sqlite3_bind_text(statement, 9, adapterName, -1, nil)
         sqlite3_step(statement)
         await refresh()
+        NotificationCenter.default.post(name: .historyRecorded, object: nil)
     }
 
     func deleteSession(id: Int64) async {

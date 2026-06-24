@@ -4,28 +4,28 @@ struct PowerFlowView: View {
     @Environment(AppModel.self) private var appModel
 
     var body: some View {
-        GroupBox("Power Flow") {
-            let resource = appModel.power.current
+        GroupBox(L10n("power_flow")) {
+            let resource = appModel.activeResource
             HStack(spacing: 12) {
                 if resource.isCharging {
-                    flowNode(title: "Adapter", value: resource.systemIn + resource.data.efficiencyLoss, color: .yellow, symbol: "powerplug.fill")
+                    flowNode(title: L10n("adapter"), value: resource.systemIn + resource.data.efficiencyLoss, color: .yellow, symbol: "powerplug.fill")
                     flowArrow
                 }
 
                 VStack(spacing: 8) {
-                    if resource.isLocal {
+                    if appModel.activeIsLocal {
                         HStack(spacing: 8) {
-                            flowNode(title: "Screen", value: resource.data.brightnessPower, color: .blue, symbol: "sun.max.fill")
-                            flowNode(title: "Heatpipe", value: resource.data.heatpipePower, color: .orange, symbol: "flame.fill")
+                            flowNode(title: L10n("screen"), value: resource.data.brightnessPower, color: .blue, symbol: "sun.max.fill")
+                            flowNode(title: L10n("heatpipe"), value: resource.data.heatpipePower, color: .orange, symbol: "flame.fill")
                         }
                     }
-                    flowNode(title: "System", value: resource.systemLoad, color: .purple, symbol: "laptopcomputer")
+                    flowNode(title: L10n("system"), value: resource.systemLoad, color: .purple, symbol: "laptopcomputer")
                 }
 
                 flowArrow
 
                 flowNode(
-                    title: resource.isCharging ? "Battery In" : "Battery Out",
+                    title: resource.isCharging ? L10n("battery_in") : L10n("battery_out"),
                     value: abs(resource.batteryPower),
                     color: .green,
                     symbol: "battery.100"

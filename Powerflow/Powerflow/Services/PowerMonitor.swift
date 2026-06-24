@@ -70,7 +70,9 @@ final class PowerMonitor {
             systemLoad: current.systemLoad,
             systemIn: current.systemIn,
             batteryPower: current.batteryPower,
-            batteryLevel: Float(current.batteryLevel)
+            batteryLevel: Float(current.batteryLevel),
+            brightnessPower: current.data.brightnessPower,
+            heatpipePower: current.data.heatpipePower
         )
         statistics.append(point)
         if statistics.count > 20 {

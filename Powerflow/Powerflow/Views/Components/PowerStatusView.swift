@@ -4,10 +4,15 @@ struct PowerStatusView: View {
     @Environment(AppModel.self) private var appModel
     var isPopover = false
 
-    var body: some View {
-        let resource = appModel.power.current
-        let loading = appModel.power.isLoading
+    private var resource: NormalizedResource {
+        isPopover ? appModel.power.current : appModel.activeResource
+    }
 
+    private var loading: Bool {
+        isPopover ? appModel.power.isLoading : appModel.activeIsLoading
+    }
+
+    var body: some View {
         Group {
             if isPopover {
                 content(resource: resource, loading: loading)
@@ -24,7 +29,7 @@ struct PowerStatusView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(resource.isCharging ? "Charging Power" : "System Power")
+                    Text(resource.isCharging ? L10n("charging_power") : L10n("system_power"))
                         .font(.headline)
                     Text(subtitle(for: resource))
                         .font(.caption)
@@ -41,8 +46,7 @@ struct PowerStatusView: View {
             }
 
             if loading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, minHeight: 48)
+                ShimmerPlaceholder(height: 48)
             } else {
                 Text(displayWatts(for: resource))
                     .font(.system(size: 42, weight: .semibold, design: .rounded))
@@ -57,7 +61,7 @@ struct PowerStatusView: View {
                     .monospacedDigit()
                 Spacer()
                 if resource.isCharging && resource.batteryLevel == 100 {
-                    Text("Fully charged")
+                    Text(L10n("fully_charged"))
                         .foregroundStyle(.secondary)
                 } else {
                     Text(remainingText(for: resource))
@@ -75,14 +79,14 @@ struct PowerStatusView: View {
 
     private func subtitle(for resource: NormalizedResource) -> String {
         if resource.isCharging {
-            return resource.adapterName ?? "Adapter"
+            return resource.adapterName ?? L10n("adapter")
         }
-        return "On Battery"
+        return L10n("on_battery")
     }
 
     private func remainingText(for resource: NormalizedResource) -> String {
         let minutes = Int(resource.timeRemainSeconds / 60)
-        let suffix = resource.isCharging ? "to full" : "to empty"
+        let suffix = resource.isCharging ? L10n("to_full") : L10n("to_empty")
         if minutes >= 60 {
             return "\(minutes / 60)h \(minutes % 60)m \(suffix)"
         }
@@ -134,16 +138,16 @@ struct PowerStatusBarView: View {
     private var segments: [Segment] {
         var items: [(String, Float, Color)] = []
         if resource.isLocal {
-            items.append(("Screen", resource.data.brightnessPower, .blue))
-            items.append(("Heatpipe", resource.data.heatpipePower, .orange))
+            items.append((L10n("screen"), resource.data.brightnessPower, .blue))
+            items.append((L10n("heatpipe"), resource.data.heatpipePower, .orange))
             let other = max(resource.systemLoad - resource.data.brightnessPower - resource.data.heatpipePower, 0)
-            items.append(("System", other, .purple))
+            items.append((L10n("system"), other, .purple))
         } else {
-            items.append(("System", resource.systemLoad, .purple))
+            items.append((L10n("system"), resource.systemLoad, .purple))
         }
         if resource.isCharging {
-            items.append(("Battery", resource.batteryPower, .green))
-            items.append(("Loss", resource.data.efficiencyLoss, .gray))
+            items.append((L10n("battery_in"), resource.batteryPower, .green))
+            items.append((L10n("power_loss"), resource.data.efficiencyLoss, .gray))
         }
         let total = items.map(\.1).reduce(0, +)
         guard total > 0 else {
