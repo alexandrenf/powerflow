@@ -209,13 +209,48 @@ struct HistoryDetailView: View {
 private struct HistoryCurveChart: View {
     let curve: [NormalizedResource]
 
+    @State private var hoverIndex: Int?
+
+    private var series: [(label: String, color: Color, keyPath: KeyPath<NormalizedResource, Float>)] {
+        [
+            (L10n("chart_system_in"), .yellow, \.systemIn),
+            (L10n("chart_system"), .purple, \.systemLoad),
+            (L10n("chart_battery"), .green, \.batteryPower),
+        ]
+    }
+
     var body: some View {
         GeometryReader { proxy in
             let maxPower = max(curve.map(\.systemIn).max() ?? 1, 1)
             ZStack(alignment: .bottomLeading) {
-                chartPath(for: \.systemIn, color: .yellow, max: maxPower, in: proxy.size)
-                chartPath(for: \.systemLoad, color: .purple, max: maxPower, in: proxy.size)
-                chartPath(for: \.batteryPower, color: .green, max: maxPower, in: proxy.size)
+                ForEach(Array(series.enumerated()), id: \.offset) { _, item in
+                    chartPath(for: item.keyPath, color: item.color, max: maxPower, in: proxy.size)
+                }
+            }
+            .contentShape(Rectangle())
+            .onContinuousHover { phase in
+                switch phase {
+                case .active(let location):
+                    let fraction = proxy.size.width > 0 ? location.x / proxy.size.width : 0
+                    let index = Int(round(fraction * CGFloat(max(curve.count - 1, 0))))
+                    hoverIndex = min(max(index, 0), max(curve.count - 1, 0))
+                case .ended:
+                    hoverIndex = nil
+                }
+            }
+            .overlay(alignment: .topLeading) {
+                if let hoverIndex, curve.indices.contains(hoverIndex) {
+                    ChartTooltipCard(
+                        rows: series.map { item in
+                            ChartTooltipRow(
+                                color: item.color,
+                                label: item.label,
+                                value: String(format: "%.1f W", curve[hoverIndex][keyPath: item.keyPath])
+                            )
+                        }
+                    )
+                    .padding(4)
+                }
             }
         }
     }

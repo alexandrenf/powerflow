@@ -29,7 +29,7 @@ Each iteration follows:
 4. **Implement** — Code changes on `cursor/swift-migration-orchestrator-c5e1`
 5. **Review** — Verify against specs; update status below
 
-**Current iteration:** 5 (chart tooltips — planned)
+**Current iteration:** 6 (animations polish — planned)
 
 ## Feature Parity Matrix
 

@@ -43,6 +43,8 @@ private struct ChartContent: View {
     let isCharging: Bool
     let isLocal: Bool
 
+    @State private var hoverIndex: Int?
+
     private struct Series: Identifiable {
         let id: String
         let label: String
