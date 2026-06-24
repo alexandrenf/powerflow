@@ -8,13 +8,13 @@ struct HistoryView: View {
     var body: some View {
         Group {
             if appModel.history.isLoading {
-                ProgressView("Loading history…")
+                ProgressView(L10n("loading_history"))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if appModel.history.sessions.isEmpty {
                 ContentUnavailableView(
-                    "No history recorded yet",
+                    L10n("no_history"),
                     systemImage: "clock.arrow.circlepath",
-                    description: Text("Charging sessions will appear here after you charge your Mac.")
+                    description: Text(L10n("no_history_desc"))
                 )
             } else {
                 @Bindable var history = appModel.history
@@ -22,12 +22,12 @@ struct HistoryView: View {
                     List(history.sessions, selection: $history.selectedSession) { session in
                         HistoryListItemView(session: session)
                     }
-                    .navigationTitle("History")
+                    .navigationTitle(L10n("history"))
                 } detail: {
                     if let session = history.selectedSession {
                         HistoryDetailView(session: session)
                     } else {
-                        ContentUnavailableView("Select a session", systemImage: "sidebar.left")
+                        ContentUnavailableView(L10n("select_session"), systemImage: "sidebar.left")
                     }
                 }
             }

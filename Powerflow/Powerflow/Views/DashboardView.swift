@@ -22,9 +22,9 @@ struct PowerUsageChartView: View {
     @Environment(AppModel.self) private var appModel
 
     var body: some View {
-        GroupBox("Power Usage") {
+        GroupBox(L10n("power_usage")) {
             if appModel.activeStatistics.isEmpty {
-                ContentUnavailableView("Waiting for data", systemImage: "chart.line.uptrend.xyaxis")
+                ContentUnavailableView(L10n("waiting_for_data"), systemImage: "chart.line.uptrend.xyaxis")
                     .frame(height: 180)
             } else {
                 ChartContent(
@@ -53,21 +53,21 @@ private struct ChartContent: View {
     private var series: [Series] {
         if isCharging {
             return [
-                Series(id: "systemIn", label: "System In", color: .yellow, keyPath: \.systemIn),
-                Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
-                Series(id: "battery", label: "Battery", color: .green, keyPath: \.batteryPower),
+                Series(id: "systemIn", label: L10n("chart_system_in"), color: .yellow, keyPath: \.systemIn),
+                Series(id: "system", label: L10n("chart_system"), color: .purple, keyPath: \.systemLoad),
+                Series(id: "battery", label: L10n("chart_battery"), color: .green, keyPath: \.batteryPower),
             ]
         }
         if isLocal {
             return [
-                Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
-                Series(id: "screen", label: "Screen", color: .blue, keyPath: \.brightnessPower),
-                Series(id: "heatpipe", label: "Heatpipe", color: .orange, keyPath: \.heatpipePower),
+                Series(id: "system", label: L10n("chart_system"), color: .purple, keyPath: \.systemLoad),
+                Series(id: "screen", label: L10n("chart_screen"), color: .blue, keyPath: \.brightnessPower),
+                Series(id: "heatpipe", label: L10n("chart_heatpipe"), color: .orange, keyPath: \.heatpipePower),
             ]
         }
         return [
-            Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
-            Series(id: "battery", label: "Battery", color: .green, keyPath: \.batteryPower),
+            Series(id: "system", label: L10n("chart_system"), color: .purple, keyPath: \.systemLoad),
+            Series(id: "battery", label: L10n("chart_battery"), color: .green, keyPath: \.batteryPower),
         ]
     }
 
@@ -134,24 +134,24 @@ struct TechnicalDetailView: View {
 
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 12) {
             metricCard(
-                title: "Temperature",
+                title: L10n("temperature"),
                 value: loading ? "…" : temperatureText(resource.temperature),
-                subtitle: "Battery temperature"
+                subtitle: L10n("battery_temperature")
             )
             metricCard(
-                title: "Battery Health",
+                title: L10n("battery_health"),
                 value: loading ? "…" : healthText(max: resource.maxCapacity, design: resource.designCapacity),
-                subtitle: "Max vs design capacity"
+                subtitle: L10n("battery_health_desc")
             )
             metricCard(
-                title: "Cycle Count",
-                value: loading ? "…" : "\(resource.cycleCount) times",
-                subtitle: "Charge cycles"
+                title: L10n("cycle_count"),
+                value: loading ? "…" : "\(resource.cycleCount) \(L10n("times"))",
+                subtitle: L10n("cycle_count_desc")
             )
             metricCard(
-                title: "Energy",
+                title: L10n("energy"),
                 value: loading ? "…" : "\(resource.currentCapacity) mAh",
-                subtitle: loading ? "" : "Max capacity: \(resource.maxCapacity) mAh"
+                subtitle: loading ? "" : "\(L10n("max_capacity")): \(resource.maxCapacity) mAh"
             )
         }
     }

@@ -63,10 +63,10 @@ final class AppModel {
     var activeSubtitle: String {
         switch selectedPowerSource {
         case .local:
-            "Local"
+            L10n("local")
         case .remote(let udid):
-            guard let device = devices.remoteDevice(udid) else { return "offline" }
-            if device.isOffline { return "offline" }
+            guard let device = devices.remoteDevice(udid) else { return L10n("offline") }
+            if device.isOffline { return L10n("offline") }
             return device.interfaces.map(\.displayName).sorted().joined(separator: " and ")
         }
     }
@@ -85,6 +85,7 @@ final class AppModel {
         }
         power.start(preferences: preferences)
         devices.start(pollInterval: preferences.updateInterval)
+        Localization.shared.setLanguage(preferences.language)
         statusBarController = StatusBarController(appModel: self)
     }
 

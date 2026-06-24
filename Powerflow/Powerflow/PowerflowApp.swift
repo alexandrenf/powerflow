@@ -15,15 +15,33 @@ struct PowerflowApp: App {
             MainWindowView()
                 .environment(appModel)
                 .handlesSettingsRequests()
+                .localizedEnvironment()
         }
         .defaultSize(width: 1000, height: 600)
         .windowStyle(.hiddenTitleBar)
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button(L10n("about_powerflow")) {
+                    NSApp.orderFrontStandardAboutPanel(nil)
+                }
+            }
             CommandGroup(replacing: .appSettings) {
-                Button("Settings…") {
+                Button(L10n("settings")) {
                     appModel.openSettings()
                 }
                 .keyboardShortcut(",", modifiers: .command)
+            }
+            CommandGroup(replacing: .appTermination) {
+                Button(L10n("quit_powerflow")) {
+                    NSApp.terminate(nil)
+                }
+                .keyboardShortcut("q", modifiers: .command)
+            }
+            CommandGroup(after: .appInfo) {
+                Button(L10n("hide_powerflow")) {
+                    NSApp.hide(nil)
+                }
+                .keyboardShortcut("h", modifiers: .command)
             }
         }
 
@@ -32,6 +50,7 @@ struct PowerflowApp: App {
                 .environment(appModel)
                 .frame(minWidth: 700, minHeight: 800)
                 .handlesSettingsRequests()
+                .localizedEnvironment()
         }
     }
 }

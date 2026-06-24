@@ -17,7 +17,7 @@ git show f2e9982:src-tauri/src/device.rs
 git show f2e9982:crates/tpower/src/provider/mod.rs
 ```
 
-The legacy files may still exist in the working tree for convenience, but **all new implementation work goes in `Powerflow/`**.
+The legacy files may still exist in the working tree for convenience, but **all new implementation work goes in `Powerflow/`.
 
 ## Loop
 
@@ -28,6 +28,8 @@ Each iteration follows:
 3. **Implementation plan** — Ordered tasks with file targets
 4. **Implement** — Code changes on `cursor/swift-migration-orchestrator-c5e1`
 5. **Review** — Verify against specs; update status below
+
+**Current iteration:** 5 (chart tooltips — planned)
 
 ## Feature Parity Matrix
 
@@ -40,74 +42,82 @@ Each iteration follows:
 | Close main window → hide (accessory mode) | `lib.rs` window event | ✅ Done | — |
 | Settings window opens reliably | `open_settings` command | ✅ Done | — |
 | Dashboard power status card | `PowerStatus.vue` | ✅ Done | — |
-| Power flow diagram | `PowerFlow.vue` | ✅ Partial (no shimmer) | P3 |
+| Power flow diagram | `PowerFlow.vue` | ✅ Done | P3 |
 | Live power chart (dynamic series) | `PowerUsageChart.vue` | ✅ Done | — |
 | Technical detail cards | `TechnicalDetail.vue` | ✅ Done | — |
 | Charging history (local) | `history.rs`, `History.vue` | ✅ Done | — |
 | History live refresh on new session | `HistoryRecordedEvent` | ✅ Done | — |
 | Settings: theme, interval, status bar | `Settings.vue` | ✅ Done | — |
-| Settings: language (en/zh-CN) | `locales/` + vue-i18n | ❌ Picker only | P3 |
+| Settings: language (en/zh-CN) | `locales/` + vue-i18n | ✅ Done | — |
 | Settings: animations toggle | `preference.ts` | ⚠️ Partial (watts only) | P3 |
-| iOS device attach/detach monitoring | `device.rs`, MobileDevice FFI | 🔄 Scaffold done | P0 |
+| iOS device attach/detach monitoring | `device.rs`, MobileDevice FFI | ✅ Bridge done | — |
 | Multi-device tabs in title bar | `TitleBar.vue`, `useTab.ts` | ✅ Done | — |
-| Remote iOS power polling | `remote.rs` | 🔄 Stub only | P0 |
+| Remote iOS power polling | `remote.rs` | ✅ Bridge done | — |
 | Remote charging history | `history.rs` (udid, is_remote) | ✅ Done | — |
-| App menu (About, Hide, Quit) | `menu.rs` | ❌ Missing | P2 |
-| App icon assets | bundle | ❌ PNGs missing | P3 |
+| App menu (About, Hide, Quit) | `menu.rs` | ✅ Done | — |
+| App icon assets | bundle | ✅ Done (in 88add38) | — |
 | Chart tooltips | `CustomChartTooltip.vue` | ❌ Missing | P3 |
-| Loading shimmer/skeleton | `Shimmer.vue` | ❌ Missing | P3 |
+| Loading shimmer/skeleton | `Shimmer.vue` | ✅ Done | — |
 
 ## Iteration Log
 
-### Iteration 1 — UI Cohesion (current)
+### Iteration 1 — UI Cohesion ✅
 
-**Design:** The Swift app has core local monitoring but menu-bar app behaviors and settings navigation are incomplete. Users expect close-to-tray, right-click quit, and a working gear/Cmd+, settings path matching legacy.
+**Design:** Menu-bar app behaviors and settings navigation incomplete vs v0.2.2.
 
-**Specs:**
-- [x] Gear button and Cmd+, open the Settings window every time
-- [x] Closing the main window hides it and sets accessory activation policy
-- [x] Right-clicking the menu bar icon shows Show Window / Quit
-- [x] Live chart shows Screen + Heatpipe when on battery; System In when charging
-- [x] History list refreshes when a new charging session is recorded
+**Specs:** Settings open, close-to-tray, status bar menu, dynamic chart, history refresh — all done.
 
-**Implementation plan:**
-1. `AppNotifications.swift` — shared notification names
-2. `SettingsOpener.swift` — bridge `AppModel` → `@Environment(\.openSettings)`
-3. `WindowLifecycle.swift` — intercept close → `hideMainWindow()`
-4. `StatusBarController.swift` — right-click menu
-5. `PowerModels.swift` / `PowerMonitor.swift` — extend `StatisticPoint`
-6. `DashboardView.swift` — dynamic chart series
-7. `ChargingHistoryRecorder.swift` — post history-recorded notification
+**Review:** Passed.
 
-### Iteration 2 — iOS Device Monitoring (in progress)
+### Iteration 2 — iOS Device Monitoring ✅
 
-**Design:** Legacy uses `AMDeviceNotificationSubscribe` + `diagnostics_relay` IORegistry polling. Swift gets a `MobileDeviceBridge` ObjC layer with stub for CI, `DeviceMonitor` service, and multi-device title bar tabs.
+**Design:** Legacy `AMDeviceNotificationSubscribe` + `diagnostics_relay` IORegistry polling via private MobileDevice framework.
 
 **Specs:**
-- [x] MobileDevice bridge scaffold (stub compiles without physical device)
-- [x] `DeviceMonitor` service with attach/detach + polling architecture
-- [x] Multi-device tabs in title bar (local + connected iPhones)
-- [x] Dashboard reads from selected power source
-- [x] Remote charging history saves with udid + isRemote
-- [ ] Real `MobileDeviceBridge.m` implementation (replace stub on macOS device testing)
-- [ ] End-to-end test with physical iPhone
+- [x] MobileDevice bridge scaffold
+- [x] `DeviceMonitor` attach/detach + polling
+- [x] Multi-device title bar tabs
+- [x] Dashboard reads selected power source
+- [x] Remote charging history with udid + isRemote
+- [x] Real `MobileDeviceBridge.m` via dlopen (no static link required)
+- [ ] End-to-end test with physical iPhone (manual, on macOS)
 
-**Files added:**
-- `MobileDeviceBridge/` — C bridge + stub
-- `Models/DeviceModels.swift`
-- `Services/DeviceMonitor.swift`, `DeviceConnection.swift`, `RemotePowerDecoder.swift`
+**Review:** Code complete; physical device test pending manual verification.
 
-### Iteration 3 — Localization (planned)
+### Iteration 3 — Localization ✅
 
-**Specs:** Language picker switches all UI strings between en and zh-CN.
+**Design:** Legacy uses `locales/en.yaml` and `locales/zh-CN.yaml` with vue-i18n.
 
-### Iteration 4 — Visual Polish (planned)
+**Specs:**
+- [x] Language picker switches UI strings at runtime
+- [x] en + zh-CN coverage for dashboard, history, settings, menu bar
 
-**Specs:** Chart tooltips, loading shimmer, power flow animations, app icon PNGs.
+**Files:** `Support/Localization.swift`, view string updates.
+
+**Review:** Passed.
+
+### Iteration 4 — App Menu + Loading Shimmer ✅
+
+**Design:** Legacy `menu.rs` provides About, Preferences, Hide, Quit. Legacy `Shimmer.vue` for loading states.
+
+**Specs:**
+- [x] About Powerflow menu item
+- [x] Hide / Quit commands
+- [x] Shimmer placeholder while power data loads
+
+**Review:** Passed.
+
+### Iteration 5 — Chart Tooltips (planned)
+
+**Design:** Legacy `CustomChartTooltip.vue` shows values on hover for chart series.
+
+**Specs:**
+- [ ] Hover tooltip on live power chart showing series name + watts
+- [ ] Hover tooltip on history charging curve
 
 ## Review Checklist (per iteration)
 
-- [ ] All specs for the iteration marked done
-- [ ] No regressions in local power monitoring
-- [ ] `xcodebuild` succeeds (when run on macOS)
-- [ ] Matrix above updated
+- [x] Iterations 1–4 specs marked done
+- [ ] No regressions in local power monitoring (manual macOS test)
+- [ ] `xcodebuild` succeeds (manual macOS test)
+- [x] Matrix above updated

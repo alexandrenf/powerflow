@@ -55,8 +55,8 @@ struct TitleBarView: View {
             }
             Spacer()
             Picker("Section", selection: $selectedTab) {
-                Text("Dashboard").tag(MainWindowView.MainTab.dashboard)
-                Text("History").tag(MainWindowView.MainTab.history)
+                Text(L10n("dashboard")).tag(MainWindowView.MainTab.dashboard)
+                Text(L10n("history")).tag(MainWindowView.MainTab.history)
             }
             .pickerStyle(.segmented)
             .frame(maxWidth: 220)

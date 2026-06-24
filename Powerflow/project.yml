@@ -27,8 +27,8 @@ targets:
         CODE_SIGN_IDENTITY: "-"
         ENABLE_DEBUG_DYLIB: NO
         SWIFT_OBJC_BRIDGING_HEADER: Powerflow/MobileDeviceBridge/Powerflow-Bridging-Header.h
-        # Uncomment when replacing MobileDeviceStub.m with real MobileDeviceBridge.m:
-        # OTHER_LDFLAGS: ["-F/Library/Apple/System/Library/PrivateFrameworks", "-framework", "MobileDevice"]
+        # Set to 1 for CI builds without MobileDevice.framework runtime:
+        # GCC_PREPROCESSOR_DEFINITIONS: ["$(inherited)", "MOBILEDEVICE_STUB=1"]
     info:
       path: Powerflow/Info.plist
       properties:

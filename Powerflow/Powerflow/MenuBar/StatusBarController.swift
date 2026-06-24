@@ -53,11 +53,11 @@ final class StatusBarController {
 
         if event.type == .rightMouseUp {
             let menu = NSMenu()
-            let showItem = NSMenuItem(title: "Show Window", action: #selector(showMainWindow), keyEquivalent: "")
+            let showItem = NSMenuItem(title: Localization.shared.string("show_window"), action: #selector(showMainWindow), keyEquivalent: "")
             showItem.target = self
             menu.addItem(showItem)
             menu.addItem(.separator())
-            let quitItem = NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q")
+            let quitItem = NSMenuItem(title: Localization.shared.string("quit"), action: #selector(quitApp), keyEquivalent: "q")
             quitItem.target = self
             menu.addItem(quitItem)
             menu.popUp(positioning: nil, at: NSPoint(x: 0, y: button.bounds.height + 4), in: button)
