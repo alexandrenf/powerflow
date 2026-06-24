@@ -128,6 +128,7 @@ final class HistoryStore {
         sqlite3_bind_text(statement, 9, adapterName, -1, nil)
         sqlite3_step(statement)
         await refresh()
+        NotificationCenter.default.post(name: .historyRecorded, object: nil)
     }
 
     func deleteSession(id: Int64) async {

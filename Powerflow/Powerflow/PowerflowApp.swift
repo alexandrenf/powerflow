@@ -14,6 +14,7 @@ struct PowerflowApp: App {
         WindowGroup("Powerflow") {
             MainWindowView()
                 .environment(appModel)
+                .handlesSettingsRequests()
         }
         .defaultSize(width: 1000, height: 600)
         .windowStyle(.hiddenTitleBar)
@@ -30,6 +31,7 @@ struct PowerflowApp: App {
             SettingsView()
                 .environment(appModel)
                 .frame(minWidth: 700, minHeight: 800)
+                .handlesSettingsRequests()
         }
     }
 }
@@ -55,6 +57,3 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-extension Notification.Name {
-    static let openMainWindow = Notification.Name("openMainWindow")
-}

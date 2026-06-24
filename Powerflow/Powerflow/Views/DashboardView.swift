@@ -27,8 +27,11 @@ struct PowerUsageChartView: View {
                 ContentUnavailableView("Waiting for data", systemImage: "chart.line.uptrend.xyaxis")
                     .frame(height: 180)
             } else {
-                ChartContent(points: appModel.power.statistics)
-                    .frame(height: 180)
+                ChartContent(
+                    points: appModel.power.statistics,
+                    isCharging: appModel.power.current.isCharging
+                )
+                .frame(height: 180)
             }
         }
     }
@@ -36,25 +39,50 @@ struct PowerUsageChartView: View {
 
 private struct ChartContent: View {
     let points: [StatisticPoint]
+    let isCharging: Bool
+
+    private struct Series: Identifiable {
+        let id: String
+        let label: String
+        let color: Color
+        let keyPath: KeyPath<StatisticPoint, Float>
+    }
+
+    private var series: [Series] {
+        if isCharging {
+            return [
+                Series(id: "systemIn", label: "System In", color: .yellow, keyPath: \.systemIn),
+                Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
+                Series(id: "battery", label: "Battery", color: .green, keyPath: \.batteryPower),
+            ]
+        }
+        return [
+            Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
+            Series(id: "screen", label: "Screen", color: .blue, keyPath: \.brightnessPower),
+            Series(id: "heatpipe", label: "Heatpipe", color: .orange, keyPath: \.heatpipePower),
+        ]
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 12) {
-                legendDot(color: .purple, label: "System")
-                legendDot(color: .yellow, label: "Input")
-                legendDot(color: .green, label: "Battery")
+                ForEach(series) { item in
+                    legendDot(color: item.color, label: item.label)
+                }
             }
             .font(.caption2)
 
             GeometryReader { proxy in
                 let maxValue = max(
-                    points.map { max($0.systemLoad, max($0.systemIn, abs($0.batteryPower))) }.max() ?? 1,
+                    points.flatMap { point in
+                        series.map { abs(point[keyPath: $0.keyPath]) }
+                    }.max() ?? 1,
                     1
                 )
                 ZStack {
-                    linePath(for: \.systemLoad, color: .purple, max: maxValue, in: proxy.size)
-                    linePath(for: \.systemIn, color: .yellow, max: maxValue, in: proxy.size)
-                    linePath(for: \.batteryPower, color: .green, max: maxValue, in: proxy.size)
+                    ForEach(series) { item in
+                        linePath(for: item.keyPath, color: item.color, max: maxValue, in: proxy.size)
+                    }
                 }
             }
         }

@@ -35,6 +35,9 @@ struct HistoryView: View {
         .task {
             await appModel.history.refresh()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .historyRecorded)) { _ in
+            Task { await appModel.history.refresh() }
+        }
     }
 }
 

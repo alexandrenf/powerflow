@@ -116,6 +116,8 @@ struct StatisticPoint: Identifiable {
     let systemIn: Float
     let batteryPower: Float
     let batteryLevel: Float
+    let brightnessPower: Float
+    let heatpipePower: Float
 }
 
 enum AppTheme: String, CaseIterable, Identifiable, Codable {

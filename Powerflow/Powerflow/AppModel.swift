@@ -47,7 +47,7 @@ final class AppModel {
     func openSettings() {
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
-        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+        NotificationCenter.default.post(name: .openSettings, object: nil)
     }
 
     func applyTheme() {

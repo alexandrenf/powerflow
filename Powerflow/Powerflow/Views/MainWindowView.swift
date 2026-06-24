@@ -23,6 +23,11 @@ struct MainWindowView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color(nsColor: .windowBackgroundColor))
+        .background {
+            MainWindowLifecycle {
+                appModel.hideMainWindow()
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .openMainWindow)) { _ in
             appModel.openMainWindow()
         }
