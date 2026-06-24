@@ -31,10 +31,10 @@ Each iteration follows:
 | Settings: theme, interval, status bar | `Settings.vue` | ✅ Done | — |
 | Settings: language (en/zh-CN) | `locales/` + vue-i18n | ❌ Picker only | P3 |
 | Settings: animations toggle | `preference.ts` | ⚠️ Partial (watts only) | P3 |
-| iOS device attach/detach monitoring | `device.rs`, MobileDevice FFI | ❌ Not started | P0 |
-| Multi-device tabs in title bar | `TitleBar.vue`, `useTab.ts` | ❌ Not started | P0 |
-| Remote iOS power polling | `remote.rs` | ❌ Not started | P0 |
-| Remote charging history | `history.rs` (udid, is_remote) | ❌ UI only | P0 |
+| iOS device attach/detach monitoring | `device.rs`, MobileDevice FFI | 🔄 Scaffold done | P0 |
+| Multi-device tabs in title bar | `TitleBar.vue`, `useTab.ts` | ✅ Done | — |
+| Remote iOS power polling | `remote.rs` | 🔄 Stub only | P0 |
+| Remote charging history | `history.rs` (udid, is_remote) | ✅ Done | — |
 | App menu (About, Hide, Quit) | `menu.rs` | ❌ Missing | P2 |
 | App icon assets | bundle | ❌ PNGs missing | P3 |
 | Chart tooltips | `CustomChartTooltip.vue` | ❌ Missing | P3 |
@@ -62,21 +62,23 @@ Each iteration follows:
 6. `DashboardView.swift` — dynamic chart series
 7. `ChargingHistoryRecorder.swift` — post history-recorded notification
 
-### Iteration 2 — iOS Device Monitoring (planned)
+### Iteration 2 — iOS Device Monitoring (in progress)
 
-**Design:** Legacy uses `AMDeviceNotificationSubscribe` + `diagnostics_relay` over the private MobileDevice framework. Swift needs a thin C/ObjC bridge module.
+**Design:** Legacy uses `AMDeviceNotificationSubscribe` + `diagnostics_relay` IORegistry polling. Swift gets a `MobileDeviceBridge` ObjC layer with stub for CI, `DeviceMonitor` service, and multi-device title bar tabs.
 
 **Specs:**
-- Device attach/detach events update title bar tabs
-- Per-device power polling at configured interval
-- Remote `NormalizedResource` with `isLocal: false`
-- Remote sessions saved to charging history with udid
+- [x] MobileDevice bridge scaffold (stub compiles without physical device)
+- [x] `DeviceMonitor` service with attach/detach + polling architecture
+- [x] Multi-device tabs in title bar (local + connected iPhones)
+- [x] Dashboard reads from selected power source
+- [x] Remote charging history saves with udid + isRemote
+- [ ] Real `MobileDeviceBridge.m` implementation (replace stub on macOS device testing)
+- [ ] End-to-end test with physical iPhone
 
-**Implementation plan:**
-1. `MobileDevice/` — FFI bridge (mirror `crates/tpower/src/ffi/`)
-2. `DeviceMonitor.swift` — notification loop + polling
-3. `AppModel.swift` — multi-device state
-4. `MainWindowView.swift` — device tabs like legacy `TitleBar.vue`
+**Files added:**
+- `MobileDeviceBridge/` — C bridge + stub
+- `Models/DeviceModels.swift`
+- `Services/DeviceMonitor.swift`, `DeviceConnection.swift`, `RemotePowerDecoder.swift`
 
 ### Iteration 3 — Localization (planned)
 

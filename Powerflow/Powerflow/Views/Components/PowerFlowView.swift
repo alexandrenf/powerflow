@@ -5,7 +5,7 @@ struct PowerFlowView: View {
 
     var body: some View {
         GroupBox("Power Flow") {
-            let resource = appModel.power.current
+            let resource = appModel.activeResource
             HStack(spacing: 12) {
                 if resource.isCharging {
                     flowNode(title: "Adapter", value: resource.systemIn + resource.data.efficiencyLoss, color: .yellow, symbol: "powerplug.fill")
@@ -13,7 +13,7 @@ struct PowerFlowView: View {
                 }
 
                 VStack(spacing: 8) {
-                    if resource.isLocal {
+                    if appModel.activeIsLocal {
                         HStack(spacing: 8) {
                             flowNode(title: "Screen", value: resource.data.brightnessPower, color: .blue, symbol: "sun.max.fill")
                             flowNode(title: "Heatpipe", value: resource.data.heatpipePower, color: .orange, symbol: "flame.fill")

@@ -4,10 +4,15 @@ struct PowerStatusView: View {
     @Environment(AppModel.self) private var appModel
     var isPopover = false
 
-    var body: some View {
-        let resource = appModel.power.current
-        let loading = appModel.power.isLoading
+    private var resource: NormalizedResource {
+        isPopover ? appModel.power.current : appModel.activeResource
+    }
 
+    private var loading: Bool {
+        isPopover ? appModel.power.isLoading : appModel.activeIsLoading
+    }
+
+    var body: some View {
         Group {
             if isPopover {
                 content(resource: resource, loading: loading)

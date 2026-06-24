@@ -30,7 +30,9 @@ struct SettingsView: View {
                     Text("Update interval: \(preferences.updateIntervalMs) ms")
                 }
                 .onChange(of: preferences.updateIntervalMs) { _, newValue in
-                    appModel.power.refreshInterval(Double(newValue) / 1000)
+                    let interval = Double(newValue) / 1000
+                    appModel.power.refreshInterval(interval)
+                    appModel.devices.refreshInterval(interval)
                 }
 
                 Toggle("Background monitoring", isOn: .constant(true))

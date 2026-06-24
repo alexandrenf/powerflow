@@ -23,13 +23,14 @@ struct PowerUsageChartView: View {
 
     var body: some View {
         GroupBox("Power Usage") {
-            if appModel.power.statistics.isEmpty {
+            if appModel.activeStatistics.isEmpty {
                 ContentUnavailableView("Waiting for data", systemImage: "chart.line.uptrend.xyaxis")
                     .frame(height: 180)
             } else {
                 ChartContent(
-                    points: appModel.power.statistics,
-                    isCharging: appModel.power.current.isCharging
+                    points: appModel.activeStatistics,
+                    isCharging: appModel.activeResource.isCharging,
+                    isLocal: appModel.activeIsLocal
                 )
                 .frame(height: 180)
             }
@@ -40,6 +41,7 @@ struct PowerUsageChartView: View {
 private struct ChartContent: View {
     let points: [StatisticPoint]
     let isCharging: Bool
+    let isLocal: Bool
 
     private struct Series: Identifiable {
         let id: String
@@ -56,10 +58,16 @@ private struct ChartContent: View {
                 Series(id: "battery", label: "Battery", color: .green, keyPath: \.batteryPower),
             ]
         }
+        if isLocal {
+            return [
+                Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
+                Series(id: "screen", label: "Screen", color: .blue, keyPath: \.brightnessPower),
+                Series(id: "heatpipe", label: "Heatpipe", color: .orange, keyPath: \.heatpipePower),
+            ]
+        }
         return [
             Series(id: "system", label: "System", color: .purple, keyPath: \.systemLoad),
-            Series(id: "screen", label: "Screen", color: .blue, keyPath: \.brightnessPower),
-            Series(id: "heatpipe", label: "Heatpipe", color: .orange, keyPath: \.heatpipePower),
+            Series(id: "battery", label: "Battery", color: .green, keyPath: \.batteryPower),
         ]
     }
 
@@ -121,8 +129,8 @@ struct TechnicalDetailView: View {
     @Environment(AppModel.self) private var appModel
 
     var body: some View {
-        let resource = appModel.power.current
-        let loading = appModel.power.isLoading
+        let resource = appModel.activeResource
+        let loading = appModel.activeIsLoading
 
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 12) {
             metricCard(
