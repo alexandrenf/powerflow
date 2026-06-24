@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Xcode
+Powerflow/DerivedData
+Powerflow/build
+*.xcuserstate
+xcuserdata/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

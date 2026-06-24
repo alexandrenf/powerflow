@@ -10,6 +10,37 @@ Powerflow is a macOS application designed to monitor the **power usage** and **c
 - 📊 **Detailed Insights**: View historical power usage and charging trends.
 - 🚀 **Lightweight and Fast**: Designed with performance in mind for seamless operation.
 
+## Development (Swift / macOS)
+
+Powerflow **0.3+** is a native **SwiftUI** app. The legacy Tauri/Vue/Rust code remains in the repo for reference during migration.
+
+### Requirements
+
+- macOS 14+
+- Xcode 15+ (Xcode 27 recommended for macOS 27)
+
+### Build & run
+
+```bash
+brew install xcodegen   # once
+cd Powerflow
+xcodegen generate
+open Powerflow.xcodeproj
+```
+
+Or from the command line:
+
+```bash
+cd Powerflow
+xcodegen generate
+xcodebuild -scheme Powerflow -configuration Debug -destination 'platform=macOS' build
+open ~/Library/Developer/Xcode/DerivedData/*/Build/Products/Debug/Powerflow.app
+```
+
+### Legacy Tauri app
+
+The previous stack (`src-tauri/`, `src/`, `pnpm`) is deprecated. It does not run on macOS 26+ due to outdated Tauri/wry dependencies.
+
 ---
 
 ## Installation

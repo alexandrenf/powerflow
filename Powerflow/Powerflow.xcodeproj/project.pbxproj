@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02E7497BE5A0C237658320BD /* PreferencesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E26D293565F95D8934AE58 /* PreferencesStore.swift */; };
+		0681121A7942F5843B98F8E1 /* PowerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484AEBCFAE7493656E26606C /* PowerMonitor.swift */; };
+		16DDB67910193720E32256BE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1A33C47ADAE2E6831D2C64 /* main.swift */; };
+		32AD9A8FD68A721C02AFAA19 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9B9D73A41B5DD3F8324ED3 /* PopoverView.swift */; };
+		3B18073ECBE63CEEAE6409B7 /* BatteryIORegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69642947A96740A31C43F86 /* BatteryIORegistry.swift */; };
+		4FC69F2A413680EB98452ED1 /* PowerStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A327A64CEF177AC39692D2DD /* PowerStatusView.swift */; };
+		58D0E858EB10A8F80F27BD67 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9DF2A085AA5546ACBAAD43 /* DashboardView.swift */; };
+		64E4E7A32FF251B64B0BCDA0 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85C60EFCB542AC78FD3CD /* HistoryStore.swift */; };
+		8385A29838FEDBE4FB06A52E /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9B6F9B2AEC243184218110 /* MainWindowView.swift */; };
+		94139F17D560290EC5089276 /* PowerflowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679137A87A6D86C7D522F03 /* PowerflowApp.swift */; };
+		9AAF57276FF3F33B2A3E188A /* PowerFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B097934FAF270A011D04778 /* PowerFlowView.swift */; };
+		9AB0AA7809E8C31E333DCEA9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C932AACF48AF130C35C91 /* SettingsView.swift */; };
+		9B812C5168AB6F366A22B185 /* PowerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C80C0B7CDBB3EDE6EE4DE /* PowerModels.swift */; };
+		A0AD18847A92B204166F1AAD /* ChargingHistoryRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772CECBA0E8A2F2260DAF7FB /* ChargingHistoryRecorder.swift */; };
+		A1AC70B869617C18E4C00BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F8F7E08D7AED223C7EB97ED /* Assets.xcassets */; };
+		A841D0AFBEC69802F366300B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00046B3EA09E06BBEE37D61A /* HistoryView.swift */; };
+		AD1CED6D867102D3FBC2DDBC /* AppleSMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19357554DA062CF3540DFFD4 /* AppleSMC.swift */; };
+		D85834F56E3C497FF8DD74E4 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60760184C68722D2DE952AE /* AppModel.swift */; };
+		DFF8B498129D82CC115ACFF5 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B59346495397877B3608BF /* StatusBarController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00046B3EA09E06BBEE37D61A /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		0B097934FAF270A011D04778 /* PowerFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerFlowView.swift; sourceTree = "<group>"; };
+		0C1A33C47ADAE2E6831D2C64 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		19357554DA062CF3540DFFD4 /* AppleSMC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSMC.swift; sourceTree = "<group>"; };
+		1A9B9D73A41B5DD3F8324ED3 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		1BA85C60EFCB542AC78FD3CD /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		3A9DF2A085AA5546ACBAAD43 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		3F8F7E08D7AED223C7EB97ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		484AEBCFAE7493656E26606C /* PowerMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMonitor.swift; sourceTree = "<group>"; };
+		5679137A87A6D86C7D522F03 /* PowerflowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerflowApp.swift; sourceTree = "<group>"; };
+		65111B5059D34B7B9F7B6E0A /* Powerflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Powerflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67E26D293565F95D8934AE58 /* PreferencesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStore.swift; sourceTree = "<group>"; };
+		772CECBA0E8A2F2260DAF7FB /* ChargingHistoryRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingHistoryRecorder.swift; sourceTree = "<group>"; };
+		84B59346495397877B3608BF /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		8C6C932AACF48AF130C35C91 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A327A64CEF177AC39692D2DD /* PowerStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStatusView.swift; sourceTree = "<group>"; };
+		AB6C80C0B7CDBB3EDE6EE4DE /* PowerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerModels.swift; sourceTree = "<group>"; };
+		BC9B6F9B2AEC243184218110 /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
+		E69642947A96740A31C43F86 /* BatteryIORegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIORegistry.swift; sourceTree = "<group>"; };
+		F60760184C68722D2DE952AE /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		09434804F1CCAC8C728D73AA /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				84B59346495397877B3608BF /* StatusBarController.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		161403046DFC842A4BBAB5DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				19357554DA062CF3540DFFD4 /* AppleSMC.swift */,
+				E69642947A96740A31C43F86 /* BatteryIORegistry.swift */,
+				772CECBA0E8A2F2260DAF7FB /* ChargingHistoryRecorder.swift */,
+				1BA85C60EFCB542AC78FD3CD /* HistoryStore.swift */,
+				484AEBCFAE7493656E26606C /* PowerMonitor.swift */,
+				67E26D293565F95D8934AE58 /* PreferencesStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		448F9B24A2C262598091B8DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B08019D34F8D2A9390F78583 /* Components */,
+				3A9DF2A085AA5546ACBAAD43 /* DashboardView.swift */,
+				00046B3EA09E06BBEE37D61A /* HistoryView.swift */,
+				BC9B6F9B2AEC243184218110 /* MainWindowView.swift */,
+				1A9B9D73A41B5DD3F8324ED3 /* PopoverView.swift */,
+				8C6C932AACF48AF130C35C91 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A42A78198C2CCB01AD49D42A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65111B5059D34B7B9F7B6E0A /* Powerflow.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B08019D34F8D2A9390F78583 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0B097934FAF270A011D04778 /* PowerFlowView.swift */,
+				A327A64CEF177AC39692D2DD /* PowerStatusView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B88D6967BA5893194DB6CF46 /* Powerflow */ = {
+			isa = PBXGroup;
+			children = (
+				09434804F1CCAC8C728D73AA /* MenuBar */,
+				EA724806970F207D8C7AB1E3 /* Models */,
+				161403046DFC842A4BBAB5DC /* Services */,
+				448F9B24A2C262598091B8DA /* Views */,
+				F60760184C68722D2DE952AE /* AppModel.swift */,
+				3F8F7E08D7AED223C7EB97ED /* Assets.xcassets */,
+				0C1A33C47ADAE2E6831D2C64 /* main.swift */,
+				5679137A87A6D86C7D522F03 /* PowerflowApp.swift */,
+			);
+			path = Powerflow;
+			sourceTree = "<group>";
+		};
+		EA724806970F207D8C7AB1E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB6C80C0B7CDBB3EDE6EE4DE /* PowerModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F75A1CEB3D54DD498496E6E8 = {
+			isa = PBXGroup;
+			children = (
+				B88D6967BA5893194DB6CF46 /* Powerflow */,
+				A42A78198C2CCB01AD49D42A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EEF4DB8735A27C18AF4E6149 /* Powerflow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1C9DA5B6BAEB60CC38D3FF4 /* Build configuration list for PBXNativeTarget "Powerflow" */;
+			buildPhases = (
+				4D75D4084CC992996F34AD55 /* Sources */,
+				C4B70C16D685EFF98A748B71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Powerflow;
+			packageProductDependencies = (
+			);
+			productName = Powerflow;
+			productReference = 65111B5059D34B7B9F7B6E0A /* Powerflow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9D1AF7AF7355873890B171E3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					EEF4DB8735A27C18AF4E6149 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = CCEF99AB643396063DFADE1F /* Build configuration list for PBXProject "Powerflow" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F75A1CEB3D54DD498496E6E8;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A42A78198C2CCB01AD49D42A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EEF4DB8735A27C18AF4E6149 /* Powerflow */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C4B70C16D685EFF98A748B71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1AC70B869617C18E4C00BEF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D75D4084CC992996F34AD55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D85834F56E3C497FF8DD74E4 /* AppModel.swift in Sources */,
+				AD1CED6D867102D3FBC2DDBC /* AppleSMC.swift in Sources */,
+				3B18073ECBE63CEEAE6409B7 /* BatteryIORegistry.swift in Sources */,
+				A0AD18847A92B204166F1AAD /* ChargingHistoryRecorder.swift in Sources */,
+				58D0E858EB10A8F80F27BD67 /* DashboardView.swift in Sources */,
+				64E4E7A32FF251B64B0BCDA0 /* HistoryStore.swift in Sources */,
+				A841D0AFBEC69802F366300B /* HistoryView.swift in Sources */,
+				8385A29838FEDBE4FB06A52E /* MainWindowView.swift in Sources */,
+				32AD9A8FD68A721C02AFAA19 /* PopoverView.swift in Sources */,
+				9AAF57276FF3F33B2A3E188A /* PowerFlowView.swift in Sources */,
+				9B812C5168AB6F366A22B185 /* PowerModels.swift in Sources */,
+				0681121A7942F5843B98F8E1 /* PowerMonitor.swift in Sources */,
+				4FC69F2A413680EB98452ED1 /* PowerStatusView.swift in Sources */,
+				94139F17D560290EC5089276 /* PowerflowApp.swift in Sources */,
+				02E7497BE5A0C237658320BD /* PreferencesStore.swift in Sources */,
+				9AB0AA7809E8C31E333DCEA9 /* SettingsView.swift in Sources */,
+				DFF8B498129D82CC115ACFF5 /* StatusBarController.swift in Sources */,
+				16DDB67910193720E32256BE /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		573F9AC29FA2DEDC2F888D06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		6CE0489C59F91C669DE30295 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Powerflow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.powerflow.app;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8623253CF61C2C37C6B1C818 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Powerflow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.powerflow.app;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9A6776861F7D491852A248C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C1C9DA5B6BAEB60CC38D3FF4 /* Build configuration list for PBXNativeTarget "Powerflow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CE0489C59F91C669DE30295 /* Debug */,
+				8623253CF61C2C37C6B1C818 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CCEF99AB643396063DFADE1F /* Build configuration list for PBXProject "Powerflow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				573F9AC29FA2DEDC2F888D06 /* Debug */,
+				9A6776861F7D491852A248C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9D1AF7AF7355873890B171E3 /* Project object */;
+}
