@@ -1,12 +1,29 @@
 # Powerflow Swift Migration Orchestrator
 
-This document drives the iterative migration loop from the legacy Rust/Tauri app (`src-tauri/`, `crates/tpower/`) to the native SwiftUI app (`Powerflow/`).
+This document drives the iterative migration loop to bring the **native SwiftUI app** (`Powerflow/`) to full feature parity with the legacy Rust/Tauri release.
+
+## Repository timeline
+
+| Era | Commits | Codebase |
+|-----|---------|----------|
+| **Legacy (reference)** | up to `f2e9982` (v0.2.2) | Rust/Tauri + Vue — `src-tauri/`, `crates/tpower/`, `src/` |
+| **Swift (active)** | `88add38` onward | Native SwiftUI — `Powerflow/` |
+
+**The most recent commits are Swift.** Rust lives in earlier commits only; it is the reference spec, not an active target. When comparing behavior, read the legacy implementation at the v0.2.2 baseline:
+
+```bash
+git show f2e9982:src-tauri/src/lib.rs
+git show f2e9982:src-tauri/src/device.rs
+git show f2e9982:crates/tpower/src/provider/mod.rs
+```
+
+The legacy files may still exist in the working tree for convenience, but **all new implementation work goes in `Powerflow/`**.
 
 ## Loop
 
 Each iteration follows:
 
-1. **Design** — Compare legacy behavior to Swift implementation
+1. **Design** — Compare v0.2.2 Rust/Tauri behavior (git history) to current Swift
 2. **Specs** — Write acceptance criteria for the gap
 3. **Implementation plan** — Ordered tasks with file targets
 4. **Implement** — Code changes on `cursor/swift-migration-orchestrator-c5e1`
